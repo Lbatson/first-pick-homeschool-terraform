@@ -25,7 +25,6 @@ resource "aws_db_instance" "master" {
     publicly_accessible         = false
     vpc_security_group_ids      = [aws_security_group.fphs_rds.id]
     db_subnet_group_name        = aws_db_subnet_group.fphs.name
-    parameter_group_name        = "default.fphs"
     allow_major_version_upgrade = false
     auto_minor_version_upgrade  = true
     apply_immediately           = true

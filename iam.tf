@@ -1,11 +1,26 @@
-resource "aws_iam_service_linked_role" "ecs_service" {
-    aws_service_name = "ecs.amazonaws.com"
+// ECS tasks execution role
+resource "aws_iam_role" "fphs_ecs_tasks_execution" {
+    name               = "fphs-ecs-tasks-execution-role-${terraform.workspace}"
+    description        = "ECS tasks execution role"
+    assume_role_policy = templatefile("${path.module}/templates/assume_role_policy.json.tmpl", {
+        service = "ecs-tasks.amazonaws.com"
+    }) 
+
+    tags = {
+        Environment = terraform.workspace
+    }
 }
 
-// ECS task definition role
-resource "aws_iam_role" "fphs_ecs" {
-    name               = "fphs-ecs-role-${terraform.workspace}"
-    description        = "ECS task definition role"
+// Attach ECS Task Execution Role policy to role
+resource "aws_iam_role_policy_attachment" "fphs_ecs_tasks_execution" {
+    role       = aws_iam_role.fphs_ecs_tasks_execution.name
+    policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+// ECS tasks role
+resource "aws_iam_role" "fphs_ecs_tasks" {
+    name               = "fphs-ecs-tasks-role-${terraform.workspace}"
+    description        = "ECS tasks role"
     assume_role_policy = templatefile("${path.module}/templates/assume_role_policy.json.tmpl", {
         service = "ecs-tasks.amazonaws.com"
     }) 
@@ -25,8 +40,8 @@ resource "aws_iam_policy" "fphs_log_publishing" {
     })
 }
 
-// Attach Cloudwatch log publishing policy to ECS role
-resource "aws_iam_role_policy_attachment" "fphs_ecs_log_publishing" {
-    role       = aws_iam_role.fphs_ecs.name
+// Attach Cloudwatch log publishing policy to role
+resource "aws_iam_role_policy_attachment" "fphs_ecs_tasks_log_publishing" {
+    role       = aws_iam_role.fphs_ecs_tasks.name
     policy_arn = aws_iam_policy.fphs_log_publishing.arn
 }

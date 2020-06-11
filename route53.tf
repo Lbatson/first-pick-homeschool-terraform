@@ -1,10 +1,10 @@
 resource "aws_route53_zone" "fphs" {
     count = terraform.workspace == "production" ? 1 : 0
-    name  = "fphs"
+    name  = var.domain
 }
 
 data "aws_route53_zone" "fphs" {
-    name         = "fphs"
+    name         = var.domain
     private_zone = false
     depends_on   = [aws_route53_zone.fphs]
 }
@@ -50,5 +50,4 @@ resource "aws_route53_record" "cert_validation" {
     type = lookup(aws_acm_certificate.fphs.domain_validation_options[0], "resource_record_type")
     ttl = 60
     records = [lookup(aws_acm_certificate.fphs.domain_validation_options[0], "resource_record_value")]
-    depends_on = [aws_acm_certificate.fphs]
 }

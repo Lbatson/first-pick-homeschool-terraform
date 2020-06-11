@@ -11,15 +11,15 @@ variable "region" {
 }
 
 variable "multi_az" {
-    default = false
+    default = true 
 }
 
 variable "az_count" {
-    default = "1"
+    default = "2"
 }
 
 variable "app_count" {
-    default = "1"
+    default = "2"
 }
 
 variable "app_image" {
@@ -47,7 +47,7 @@ variable "rds_engine" {
 }
 
 variable "rds_engine_version" {
-    default = "12.0"
+    default = "11.7"
 }
 
 variable "rds_port" {

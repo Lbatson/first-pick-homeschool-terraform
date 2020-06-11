@@ -5,6 +5,13 @@ resource "aws_security_group" "fphs_lb" {
     name        = "fphs-alb-${terraform.workspace}"
     description = "Allow access to port 443 only"
     vpc_id      = aws_vpc.fphs.id
+    
+    ingress {
+        protocol    = "tcp"
+        from_port   = 80
+        to_port     = 80
+        cidr_blocks = ["0.0.0.0/0"]
+    }
 
     ingress {
         protocol    = "tcp"

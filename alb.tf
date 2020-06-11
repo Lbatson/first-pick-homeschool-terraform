@@ -7,7 +7,7 @@ resource "aws_lb" "fphs" {
 
     access_logs {
         bucket  = aws_s3_bucket.fphs_logs.bucket
-        prefix  = "lb-${terraform.workspace}"
+        prefix  = "lb"
         enabled = true
     }
 
