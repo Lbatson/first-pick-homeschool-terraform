@@ -6,9 +6,7 @@ resource "aws_acm_certificate" "fphs" {
         create_before_destroy = true
     }
 
-    tags = {
-        Environment = terraform.workspace
-    }
+    tags = local.common_tags
 }
 
 resource "aws_acm_certificate_validation" "fphs" {

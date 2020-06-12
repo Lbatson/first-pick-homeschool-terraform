@@ -2,7 +2,7 @@
 
 # Internet to ALB
 resource "aws_security_group" "fphs_lb" {
-    name        = "fphs-alb-${terraform.workspace}"
+    name        = "${local.name}-alb"
     description = "Allow access to port 443 only"
     vpc_id      = aws_vpc.fphs.id
     
@@ -27,14 +27,12 @@ resource "aws_security_group" "fphs_lb" {
         cidr_blocks = ["0.0.0.0/0"]
     }
 
-    tags = {
-        Environment = terraform.workspace
-    }
+    tags = local.common_tags
 }
 
 # ALB TO ECS
 resource "aws_security_group" "fphs_ecs" {
-    name        = "fphs-ecs-${terraform.workspace}"
+    name        = "${local.name}-ecs"
     description = "Allow inbound access from ALB only"
     vpc_id      = aws_vpc.fphs.id
 
@@ -52,21 +50,19 @@ resource "aws_security_group" "fphs_ecs" {
         cidr_blocks = ["0.0.0.0/0"]
     }
 
-    tags = {
-        Environment = terraform.workspace
-    }
+    tags = local.common_tags
 }
 
 # ECS to RDS
 resource "aws_security_group" "fphs_rds" {
-    name        = "fphs-rds-${terraform.workspace}"
+    name        = "${local.name}-rds"
     description = "Allow inbound access from ECS only"
     vpc_id      = aws_vpc.fphs.id
 
     ingress {
         protocol        = "tcp"
-        from_port       = var.rds_port
-        to_port         = var.rds_port
+        from_port       = local.secrets["db"]["port"]
+        to_port         = local.secrets["db"]["port"]
         security_groups = [aws_security_group.fphs_ecs.id]
     }
 
@@ -77,7 +73,5 @@ resource "aws_security_group" "fphs_rds" {
         cidr_blocks = ["0.0.0.0/0"]
     }
 
-    tags = {
-        Environment = terraform.workspace
-    }
+    tags = local.common_tags
 }

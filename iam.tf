@@ -6,9 +6,7 @@ resource "aws_iam_role" "fphs_ecs_tasks_execution" {
         service = "ecs-tasks.amazonaws.com"
     }) 
 
-    tags = {
-        Environment = terraform.workspace
-    }
+    tags = local.common_tags
 }
 
 // Attach ECS Task Execution Role policy to role
@@ -25,9 +23,7 @@ resource "aws_iam_role" "fphs_ecs_tasks" {
         service = "ecs-tasks.amazonaws.com"
     }) 
 
-    tags = {
-        Environment = terraform.workspace
-    }
+    tags = local.common_tags
 }
 
 // Cloudwatch log publishing policy

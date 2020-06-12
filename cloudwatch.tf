@@ -1,14 +1,12 @@
 # Set up CloudWatch group and log stream and retain logs for 30 days
 resource "aws_cloudwatch_log_group" "fphs" {
-    name              = "fphs-${terraform.workspace}"
+    name              = local.name
     retention_in_days = 30
 
-    tags = {
-        Environment = terraform.workspace
-    }
+    tags = local.common_tags
 }
 
 resource "aws_cloudwatch_log_stream" "fphs" {
-    name           = "fphs-${terraform.workspace}"
+    name           = local.name
     log_group_name = aws_cloudwatch_log_group.fphs.name
 }

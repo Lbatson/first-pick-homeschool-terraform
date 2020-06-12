@@ -1,6 +1,6 @@
 # ECS Cluster
 resource "aws_ecs_cluster" "fphs" {
-    name               = "fphs-${terraform.workspace}"
+    name               = local.name
     capacity_providers = ["FARGATE"]
 
     setting {
@@ -8,14 +8,12 @@ resource "aws_ecs_cluster" "fphs" {
         value = "enabled"
     }
 
-    tags = {
-        Environment = terraform.workspace
-    }
+    tags = local.common_tags
 }
 
 # ECS task definition using Fargate and template file
 resource "aws_ecs_task_definition" "fphs" {
-    family                   = "fphs-${terraform.workspace}"
+    family                   = local.name
     cpu                      = var.fargate_cpu
     memory                   = var.fargate_memory
     network_mode             = "awsvpc"
@@ -25,7 +23,7 @@ resource "aws_ecs_task_definition" "fphs" {
     # ECS task definition configuration file
     container_definitions    = templatefile("${path.module}/templates/container.json.tmpl", {
         name   = "fphs-${terraform.workspace}"
-        image  = var.app_image
+        image  = "${aws_ecr_repository.fphs.repository_url}:latest"
         cpu    = var.fargate_cpu
         memory = var.fargate_memory
         port   = var.app_port
@@ -33,14 +31,12 @@ resource "aws_ecs_task_definition" "fphs" {
         region = var.region
     })
 
-    tags = {
-        Environment = terraform.workspace
-    }
+    tags = local.common_tags
 }
 
 # ECS service: Application
 resource "aws_ecs_service" "fphs" {
-    name            = "fphs-${terraform.workspace}"
+    name            = local.name
     cluster         = aws_ecs_cluster.fphs.arn
     task_definition = aws_ecs_task_definition.fphs.arn
     desired_count   = var.app_count
@@ -68,7 +64,5 @@ resource "aws_ecs_service" "fphs" {
         aws_lb_listener.fphs_redirect
     ]
 
-    tags = {
-        Environment = terraform.workspace
-    }
+    tags = local.common_tags
 }

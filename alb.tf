@@ -1,5 +1,5 @@
 resource "aws_lb" "fphs" {
-    name               = "fphs-${terraform.workspace}"
+    name               = local.name 
     internal           = false
     load_balancer_type = "application"
     subnets            = aws_subnet.public.*.id
@@ -11,13 +11,11 @@ resource "aws_lb" "fphs" {
         enabled = true
     }
 
-    tags = {
-        Environment = terraform.workspace
-    }
+    tags = local.common_tags
 }
 
 resource "aws_lb_target_group" "fphs" {
-    name                          = "fphs-${terraform.workspace}"
+    name                          = local.name
     port                          = var.app_port
     protocol                      = "HTTP"
     target_type                   = "ip"
@@ -30,9 +28,7 @@ resource "aws_lb_target_group" "fphs" {
         enabled = true
     }
 
-    tags = {
-        Environment = terraform.workspace
-    }
+    tags = local.common_tags
 }
 
 resource "aws_lb_listener" "fphs_app" {
