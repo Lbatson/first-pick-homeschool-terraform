@@ -22,13 +22,23 @@ resource "aws_ecs_task_definition" "fphs" {
     execution_role_arn       = aws_iam_role.fphs_ecs_tasks_execution.arn
     # ECS task definition configuration file
     container_definitions    = templatefile("${path.module}/templates/container.json.tmpl", {
-        name   = "fphs-${terraform.workspace}"
-        image  = "${aws_ecr_repository.fphs.repository_url}:latest"
-        cpu    = var.fargate_cpu
-        memory = var.fargate_memory
-        port   = var.app_port
-        log    = aws_cloudwatch_log_group.fphs.name
-        region = var.region
+        name                 = "fphs-${terraform.workspace}"
+        image                = "${aws_ecr_repository.fphs.repository_url}:latest"
+        cpu                  = var.fargate_cpu
+        memory               = var.fargate_memory
+        port                 = var.app_port
+        log                  = aws_cloudwatch_log_group.fphs.name
+        region               = var.region
+        db_host              = aws_db_instance.master.address
+        db_port              = local.secrets["db"]["port"]
+        db_name              = local.secrets["db"]["name"]
+        db_username          = local.secrets["db"]["username"]
+        db_password          = local.secrets["db"]["password"]
+        django_debug         = local.secrets["django"]["debug"]
+        django_secret_key    = local.secrets["django"]["secret_key"]
+        django_allowed_hosts = local.secrets["django"]["allowed_hosts"]
+        django_db_engine     = local.secrets["django"]["db_engine"]
+        django_email_backend = local.secrets["django"]["email_backend"]
     })
 
     tags = local.common_tags

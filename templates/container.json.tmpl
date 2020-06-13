@@ -19,6 +19,48 @@
         "awslogs-region": "${region}",
         "awslogs-stream-prefix": "ecs"
       }
-    }
+    },
+    "environment": [
+      {
+        "name": "DB_HOST",
+        "value": "${db_host}"
+      },
+      {
+        "name": "DB_PORT",
+        "value": "${db_port}"
+      },
+      {
+        "name": "DB_NAME",
+        "value": "${db_name}"
+      },
+      {
+        "name": "DB_USERNAME",
+        "value": "${db_username}"
+      },
+      {
+        "name": "DB_PASSWORD",
+        "value": "${db_password}"
+      },
+      {
+        "name": "DJANGO_DEBUG",
+        "value": "${django_debug}"
+      },
+      {
+        "name": "DJANGO_SECRET_KEY",
+        "value": "${django_secret_key}"
+      },
+      {
+        "name": "DJANGO_ALLOWED_HOSTS",
+        "value": "${django_allowed_hosts}"
+      },
+      {
+        "name": "DJANGO_DB_ENGINE",
+        "value": "${django_db_engine}"
+      },
+      {
+        "name": "DJANGO_EMAIL_BACKEND",
+        "value": "${django_email_backend}"
+      }
+    ]
   }
 ]
