@@ -53,6 +53,30 @@ resource "aws_security_group" "fphs_ecs" {
     tags = local.common_tags
 }
 
+# ECS to Elasticache
+resource "aws_security_group" "fphs_elasticache" {
+    name        = "${local.name}-elasticache"
+    description = "Allow inbound access from ECS only"
+    vpc_id      = aws_vpc.fphs.id
+
+    ingress {
+        protocol        = "tcp"
+        from_port       = local.secrets["cache"]["port"]
+        to_port         = local.secrets["cache"]["port"]
+        security_groups = [aws_security_group.fphs_ecs.id]
+    }
+
+    egress {
+        protocol    = "-1"
+        from_port   = 0
+        to_port     = 0
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+
+    tags = local.common_tags
+}
+
+
 # ECS to RDS
 resource "aws_security_group" "fphs_rds" {
     name        = "${local.name}-rds"

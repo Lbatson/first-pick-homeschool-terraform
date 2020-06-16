@@ -49,3 +49,11 @@ variable "rds_storage_type" {
 variable "ecr_image_count" {
     default = 10
 }
+
+variable "elasticache_node_type" {
+    default = "cache.t3.micro"
+}
+
+variable "elasticache_node_count" {
+    default = 1
+}

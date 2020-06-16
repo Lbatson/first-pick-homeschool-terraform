@@ -1,3 +1,18 @@
+resource "aws_s3_bucket" "fphs" {
+    bucket = local.name
+    acl    = "private"
+
+    tags   = local.common_tags
+}
+
+resource "aws_s3_bucket_policy" "fphs" {
+    bucket = aws_s3_bucket.fphs.id
+    policy = templatefile("${path.module}/templates/ecs_s3_data_policy.json.tmpl", {
+        bucket    = local.name
+        principal = aws_iam_role.fphs_ecs_tasks.arn
+    })
+}
+
 data "aws_elb_service_account" "fphs" {}
 
 resource "aws_s3_bucket" "fphs_logs" {
