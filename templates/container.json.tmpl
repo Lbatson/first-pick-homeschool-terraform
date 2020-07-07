@@ -22,24 +22,8 @@
     },
     "environment": [
       {
-        "name": "DB_HOST",
-        "value": "${db_host}"
-      },
-      {
-        "name": "DB_PORT",
-        "value": "${db_port}"
-      },
-      {
-        "name": "DB_NAME",
-        "value": "${db_name}"
-      },
-      {
-        "name": "DB_USERNAME",
-        "value": "${db_username}"
-      },
-      {
-        "name": "DB_PASSWORD",
-        "value": "${db_password}"
+        "name": "DJANGO_SETTINGS_MODULE",
+        "value": "${django_settings_module}"
       },
       {
         "name": "DJANGO_DEBUG",
@@ -54,12 +38,104 @@
         "value": "${django_allowed_hosts}"
       },
       {
+        "name": "DJANGO_ADMIN_URL",
+        "value": "${django_admin_url}"
+      },
+      {
+        "name": "DJANGO_ADMIN_ACCOUNT",
+        "value": "${django_admin_account}"
+      },
+      {
+        "name": "DJANGO_ACCOUNT_ALLOW_REGISTRATION",
+        "value": "${django_account_allow_reg}"
+      },
+      {
         "name": "DJANGO_DB_ENGINE",
         "value": "${django_db_engine}"
       },
       {
+        "name": "DJANGO_DB_HOST",
+        "value": "${django_db_host}"
+      },
+      {
+        "name": "DJANGO_DB_PORT",
+        "value": "${django_db_port}"
+      },
+      {
+        "name": "DJANGO_DB_NAME",
+        "value": "${django_db_name}"
+      },
+      {
+        "name": "DJANGO_DB_USERNAME",
+        "value": "${django_db_username}"
+      },
+      {
+        "name": "DJANGO_DB_PASSWORD",
+        "value": "${django_db_password}"
+      },
+      {
+        "name": "DJANGO_CACHE_BACKEND",
+        "value": "${django_cache_backend}"
+      },
+      {
+        "name": "DJANGO_CACHE_LOCATION",
+        "value": "${django_cache_location}"
+      },
+      {
+        "name": "DJANGO_CACHE_TIMEOUT",
+        "value": "${django_cache_timeout}"
+      },
+      {
+        "name": "DJANGO_CACHE_OPTIONS",
+        "value": "${django_cache_options}"
+      },
+      {
         "name": "DJANGO_EMAIL_BACKEND",
         "value": "${django_email_backend}"
+      },
+      {
+        "name": "DJANGO_ANYMAIL_OPTIONS",
+        "value": "${django_anymail_options}"
+      },
+      {
+        "name": "DJANGO_DEFAULT_FROM_EMAIL",
+        "value": "${django_default_from_email}"
+      },
+      {
+        "name": "DJANGO_SERVER_EMAIL",
+        "value": "${django_server_email}"
+      },
+      {
+        "name": "DJANGO_AWS_STORAGE_BUCKET_NAME",
+        "value": "${django_aws_storage_bucket}"
+      },
+      {
+        "name": "DJANGO_AWS_S3_REGION_NAME",
+        "value": "${django_aws_s3_region_name}"
+      },
+      {
+        "name": "DJANGO_SENTRY_DSN",
+        "value": "${django_sentry_dsn}"
+      },
+      {
+        "name": "DJANGO_SENTRY_LOG_LEVEL",
+        "value": "${django_sentry_log_level}"
+      },
+      {
+        "name": "DJANGO_RECAPTCHA_PUBLIC_KEY",
+        "value": "${django_recaptcha_public_key}"
+      },
+      {
+        "name": "DJANGO_RECAPTCHA_PRIVATE_KEY",
+        "value": "${django_recaptcha_private_key}"
+      },
+      {
+        "name": "DJANGO_COMPRESS_ENABLED",
+        "value": "${django_compress_enabled}"
+      },
+      {
+        "name": "WEB_CONCURRENCY",
+        "value": "${django_web_concurrency}"
       }
     ]
   }

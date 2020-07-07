@@ -48,6 +48,6 @@ resource "aws_route53_record" "cert_validation" {
     zone_id = data.aws_route53_zone.fphs.zone_id
     name = lookup(aws_acm_certificate.fphs.domain_validation_options[0], "resource_record_name")
     type = lookup(aws_acm_certificate.fphs.domain_validation_options[0], "resource_record_type")
-    ttl = 60
     records = [lookup(aws_acm_certificate.fphs.domain_validation_options[0], "resource_record_value")]
+    ttl = 60
 }

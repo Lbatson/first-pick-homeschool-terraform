@@ -11,11 +11,11 @@ variable "region" {
 }
 
 variable "az_count" {
-    default = "2"
+    default = "1"
 }
 
 variable "app_count" {
-    default = "2"
+    default = "1"
 }
 
 variable "app_port" {
@@ -35,11 +35,11 @@ variable "rds_instance" {
 }
 
 variable "rds_multi_az" {
-    default = true 
+    default = false
 }
 
 variable "rds_allocated_storage" {
-    default = 20  
+    default = 20
 }
 
 variable "rds_storage_type" {
