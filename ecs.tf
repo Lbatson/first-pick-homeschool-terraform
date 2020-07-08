@@ -23,19 +23,20 @@ resource "aws_ecs_task_definition" "fphs" {
     # ECS task definition configuration file
     container_definitions    = templatefile("${path.module}/templates/container.json.tmpl", {
         # ECS task settings
-        name                 = "fphs-${terraform.workspace}"
-        image                = "${aws_ecr_repository.fphs.repository_url}:latest"
-        cpu                  = var.fargate_cpu
-        memory               = var.fargate_memory
-        port                 = var.app_port
-        log                  = aws_cloudwatch_log_group.fphs.name
-        region               = var.region
+        name   = "fphs-${terraform.workspace}"
+        image  = "${aws_ecr_repository.fphs.repository_url}:latest"
+        cpu    = var.fargate_cpu
+        memory = var.fargate_memory
+        port   = var.app_port
+        log    = aws_cloudwatch_log_group.fphs.name
+        region = var.region
         # Django application settings
         django_settings_module       = local.secrets["django"]["settings_module"]
         django_debug                 = local.secrets["django"]["debug"]
         django_secret_key            = local.secrets["django"]["secret_key"]
         django_allowed_hosts         = local.secrets["django"]["allowed_hosts"]
         django_admin_url             = local.secrets["django"]["admin"]["url"]
+        django_admin_account         = local.secrets["django"]["admin"]["account"]
         django_account_allow_reg     = local.secrets["django"]["admin"]["account_allow_registration"]
         django_db_engine             = local.secrets["django"]["db"]["engine"]
         django_db_host               = aws_db_instance.master.address

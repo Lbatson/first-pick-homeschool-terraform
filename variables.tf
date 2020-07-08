@@ -11,7 +11,7 @@ variable "region" {
 }
 
 variable "az_count" {
-    default = "1"
+    default = "2"
 }
 
 variable "app_count" {
