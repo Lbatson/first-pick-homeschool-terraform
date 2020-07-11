@@ -2,6 +2,14 @@ resource "aws_s3_bucket" "fphs" {
     bucket = local.name
     acl    = "private"
 
+    cors_rule {
+        allowed_headers = ["*"]
+        allowed_methods = ["GET"]
+        allowed_origins = ["https://${local.domain}"]
+        expose_headers  = ["ETag"]
+        max_age_seconds = 3000
+    }
+
     tags   = local.common_tags
 }
 

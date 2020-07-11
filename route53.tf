@@ -15,13 +15,13 @@ resource "aws_route53_record" "www" {
     name    = "www.${var.domain}"
     type    = "CNAME"
     ttl     = 60
-    records = [var.domain]
+    records = [local.domain]
 }
 
 resource "aws_route53_record" "apex" {
     count   = terraform.workspace == "production" ? 1 : 0
     zone_id = data.aws_route53_zone.fphs.zone_id
-    name    = var.domain
+    name    = local.domain
     type    = "A"
 
     alias {
@@ -34,7 +34,7 @@ resource "aws_route53_record" "apex" {
 resource "aws_route53_record" "subdomain" {
     count   = terraform.workspace == "production" ? 0 : 1
     zone_id = data.aws_route53_zone.fphs.zone_id
-    name    = "${terraform.workspace}.${var.domain}"
+    name    = local.domain
     type    = "A"
 
     alias {

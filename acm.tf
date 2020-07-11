@@ -1,5 +1,5 @@
 resource "aws_acm_certificate" "fphs" {
-    domain_name       = terraform.workspace == "production" ? var.domain : "${terraform.workspace}.${var.domain}"
+    domain_name       = local.domain
     validation_method = "DNS"
 
     lifecycle {
