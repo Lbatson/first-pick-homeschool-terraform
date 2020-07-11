@@ -19,7 +19,7 @@ variable "app_count" {
 }
 
 variable "app_port" {
-    default = "80"
+    default = "8000"
 }
 
 variable "fargate_cpu" {

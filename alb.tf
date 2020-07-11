@@ -1,5 +1,5 @@
 resource "aws_lb" "fphs" {
-    name               = local.name 
+    name               = local.name
     internal           = false
     load_balancer_type = "application"
     subnets            = aws_subnet.public.*.id
@@ -23,7 +23,7 @@ resource "aws_lb_target_group" "fphs" {
     vpc_id                        = aws_vpc.fphs.id
 
     health_check {
-        path    = "/"
+        path    = "/health/"
         matcher = "200"
         enabled = true
     }

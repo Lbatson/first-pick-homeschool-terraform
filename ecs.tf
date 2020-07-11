@@ -37,6 +37,8 @@ resource "aws_ecs_task_definition" "fphs" {
         django_allowed_hosts         = local.secrets["django"]["allowed_hosts"]
         django_admin_url             = local.secrets["django"]["admin"]["url"]
         django_admin_account         = local.secrets["django"]["admin"]["account"]
+        django_admin_username        = local.secrets["django"]["admin"]["username"]
+        django_admin_password        = local.secrets["django"]["admin"]["password"]
         django_account_allow_reg     = local.secrets["django"]["admin"]["account_allow_registration"]
         django_db_engine             = local.secrets["django"]["db"]["engine"]
         django_db_host               = aws_db_instance.master.address
@@ -52,7 +54,7 @@ resource "aws_ecs_task_definition" "fphs" {
         django_anymail_options       = local.secrets["django"]["email"]["anymail_options"]
         django_default_from_email    = local.secrets["django"]["email"]["default_from_email"]
         django_server_email          = local.secrets["django"]["email"]["server_email"]
-        django_aws_storage_bucket    = aws_s3_bucket.fphs.bucket_domain_name
+        django_aws_storage_bucket    = aws_s3_bucket.fphs.bucket
         django_aws_s3_region_name    = aws_s3_bucket.fphs.region
         django_sentry_dsn            = local.secrets["django"]["logging"]["sentry_dsn"]
         django_sentry_log_level      = local.secrets["django"]["logging"]["sentry_log_level"]
