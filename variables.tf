@@ -23,11 +23,11 @@ variable "app_port" {
 }
 
 variable "fargate_cpu" {
-    default = "512"
+    default = "1024"
 }
 
 variable "fargate_memory" {
-    default = "1024"
+    default = "2048"
 }
 
 variable "rds_instance" {
